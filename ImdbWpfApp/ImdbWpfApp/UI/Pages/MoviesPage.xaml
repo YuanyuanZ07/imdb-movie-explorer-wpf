@@ -1,0 +1,108 @@
+<Page x:Class="ImdbWpfApp.UI.Pages.MoviesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="MoviesPage"
+      Background="#F9FAFB">
+
+	<Grid Margin="30">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel>
+			<TextBlock Text="Movies"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#111827"/>
+			<TextBlock Text="Search and filter titles from the IMDB database."
+                       FontSize="15"
+                       Foreground="#6B7280"
+                       Margin="0,8,0,0"/>
+		</StackPanel>
+
+		<Border Grid.Row="2" Background="White" CornerRadius="12" Padding="20">
+			<StackPanel>
+				<WrapPanel Margin="0,0,0,12">
+					<Button Content="Load Starter Movies"
+                            Width="150"
+                            Height="36"
+                            Margin="0,0,12,0"
+                            Background="#374151"
+                            Foreground="White"
+                            BorderBrush="Transparent"
+                            Click="LoadStarterButton_Click"/>
+
+					<TextBox Width="240"
+                             Height="36"
+                             Margin="0,0,12,0"
+                             VerticalContentAlignment="Center"
+                             Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+
+					<Button Content="Search"
+                            Width="100"
+                            Height="36"
+                            Margin="0,0,12,0"
+                            Background="#2563EB"
+                            Foreground="White"
+                            BorderBrush="Transparent"
+                            Click="SearchButton_Click"/>
+
+					<TextBox Width="120"
+                             Height="36"
+                             Margin="0,0,12,0"
+                             VerticalContentAlignment="Center"
+                             Text="{Binding YearText, UpdateSourceTrigger=PropertyChanged}"/>
+
+					<Button Content="Filter Year"
+                            Width="110"
+                            Height="36"
+                            Margin="0,0,12,0"
+                            Background="#059669"
+                            Foreground="White"
+                            BorderBrush="Transparent"
+                            Click="FilterYearButton_Click"/>
+
+					<ComboBox Width="140"
+                              Height="36"
+                              Margin="0,0,12,0"
+                              ItemsSource="{Binding Genres}"
+                              SelectedItem="{Binding SelectedGenre}"/>
+
+					<Button Content="Filter Genre"
+                            Width="110"
+                            Height="36"
+                            Background="#7C3AED"
+                            Foreground="White"
+                            BorderBrush="Transparent"
+                            Click="FilterGenreButton_Click"/>
+				</WrapPanel>
+			</StackPanel>
+		</Border>
+
+		<Border Grid.Row="4" Background="White" CornerRadius="12" Padding="16">
+			<DataGrid ItemsSource="{Binding Movies}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      RowBackground="White"
+                      AlternatingRowBackground="#F3F4F6">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Title" Binding="{Binding PrimaryTitle}" Width="*"/>
+					<DataGridTextColumn Header="Type" Binding="{Binding TitleType}" Width="140"/>
+					<DataGridTextColumn Header="Year" Binding="{Binding StartYear}" Width="100"/>
+					<DataGridTextColumn Header="Runtime" Binding="{Binding RuntimeMinutes}" Width="120"/>
+					<DataGridCheckBoxColumn Header="Adult" Binding="{Binding IsAdult}" Width="100"/>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Border>
+	</Grid>
+</Page>

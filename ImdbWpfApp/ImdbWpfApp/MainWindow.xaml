@@ -1,0 +1,92 @@
+﻿<Window x:Class="ImdbWpfApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="IMDB Movie Explorer"
+        Height="720"
+        Width="1200"
+        WindowStartupLocation="CenterScreen"
+        Background="#111827">
+
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="14,10"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Margin" Value="0,6,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8">
+                            <ContentPresenter Margin="6,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#374151"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Grid.Column="0" Background="#1F2937">
+            <StackPanel Margin="20">
+                <TextBlock Text="IMDB Movie Explorer"
+                           Foreground="White"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Margin="0,10,0,30"
+                           TextWrapping="Wrap"/>
+
+                <Button Content="Home"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="HomeButton_Click"/>
+
+                <Button Content="Movies"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="MoviesButton_Click"/>
+
+                <Button Content="People"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="PeopleButton_Click"/>
+
+                <Button Content="Reports"
+                        Style="{StaticResource NavButtonStyle}"
+                        Click="ReportsButton_Click"/>
+
+                <Border Background="#374151"
+                        CornerRadius="10"
+                        Padding="14"
+                        Margin="0,30,0,0">
+                    <TextBlock Foreground="#D1D5DB"
+                               FontSize="13"
+                               TextWrapping="Wrap"
+                               Text="Browse titles, search people, and view top-rated content from the IMDB database."/>
+                </Border>
+            </StackPanel>
+        </Border>
+
+        <!-- Main content -->
+        <Border Grid.Column="1" Background="#F9FAFB" Margin="16" CornerRadius="12">
+            <Frame x:Name="MainFrame"
+                   NavigationUIVisibility="Hidden"/>
+        </Border>
+    </Grid>
+</Window>

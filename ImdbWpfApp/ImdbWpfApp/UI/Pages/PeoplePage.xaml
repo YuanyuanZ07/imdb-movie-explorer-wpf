@@ -1,0 +1,75 @@
+<Page x:Class="ImdbWpfApp.UI.Pages.PeoplePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Title="PeoplePage"
+      Background="#F9FAFB">
+
+	<Grid Margin="30">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<StackPanel>
+			<TextBlock Text="People"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="#111827"/>
+			<TextBlock Text="Search actors, directors, writers, and other names."
+                       FontSize="15"
+                       Foreground="#6B7280"
+                       Margin="0,8,0,0"/>
+		</StackPanel>
+
+		<Border Grid.Row="2" Background="White" CornerRadius="12" Padding="20">
+			<WrapPanel>
+				<Button Content="Load Starter People"
+                        Width="150"
+                        Height="36"
+                        Margin="0,0,12,0"
+                        Background="#374151"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        Click="LoadStarterButton_Click"/>
+
+				<TextBox Width="320"
+                         Height="36"
+                         Margin="0,0,12,0"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"/>
+
+				<Button Content="Search"
+                        Width="110"
+                        Height="36"
+                        Background="#2563EB"
+                        Foreground="White"
+                        BorderBrush="Transparent"
+                        Click="SearchButton_Click"/>
+			</WrapPanel>
+		</Border>
+
+		<Border Grid.Row="4" Background="White" CornerRadius="12" Padding="16">
+			<DataGrid ItemsSource="{Binding People}"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      HeadersVisibility="Column"
+                      GridLinesVisibility="Horizontal"
+                      RowBackground="White"
+                      AlternatingRowBackground="#F3F4F6">
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Name" Binding="{Binding PrimaryName}" Width="*"/>
+					<DataGridTextColumn Header="Birth Year" Binding="{Binding BirthYear}" Width="120"/>
+					<DataGridTextColumn Header="Death Year" Binding="{Binding DeathYear}" Width="120"/>
+					<DataGridTextColumn Header="Profession" Binding="{Binding PrimaryProfession}" Width="220"/>
+				</DataGrid.Columns>
+			</DataGrid>
+		</Border>
+	</Grid>
+</Page>

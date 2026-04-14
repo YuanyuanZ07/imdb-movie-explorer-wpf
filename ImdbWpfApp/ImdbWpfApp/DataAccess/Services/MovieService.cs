@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using ImdbWpfApp.DataAccess;
+using ImdbWpfApp.DataAccess.Services;
 
 namespace ImdbWpfApp.Services
 {
@@ -12,6 +13,51 @@ namespace ImdbWpfApp.Services
         public MovieService(ImdbContext context)
         {
             _context = context;
+        }
+        public MovieDetailsDto GetMovieDetails(string titleId)
+        {
+
+
+            var title = _context.Titles
+                            .FirstOrDefault(t => t.TitleId == titleId);
+
+            if (title == null)
+                return null;
+
+            var rating = _context.Ratings
+                .FirstOrDefault(r => r.TitleId == titleId);
+
+
+            var genres = (from tg in _context.TitleGenres
+                          join g in _context.Genres
+                              on tg.GenreId equals g.GenreId
+                          where tg.TitleId == titleId
+                          select g.Name)
+                                      .ToList();
+
+            var cast = (from p in _context.Principals
+                        join n in _context.Names
+                            on p.NameId equals n.NameId
+                        where p.TitleId == titleId
+                        select n.PrimaryName)
+                        .ToList();
+
+
+
+
+            return new MovieDetailsDto
+            {
+                Title = title.PrimaryTitle ?? "",
+                Rating = rating?.AverageRating ?? 0,
+                Votes = rating?.NumVotes?.ToString() ?? "0",
+                Year = title.StartYear ?? 0,
+                Runtime = $"{title.RuntimeMinutes ?? 0} min",
+                Genres = genres,
+                Cast = cast
+            };
+
+
+
         }
 
         public List<Titles> GetStarterMovies()
@@ -88,10 +134,15 @@ namespace ImdbWpfApp.Services
         }
     }
 
+
+
     public class TopRatedMovieDto
     {
         public string? PrimaryTitle { get; set; }
         public decimal? AverageRating { get; set; }
         public int? NumVotes { get; set; }
-    }
+    };
+
+      
+
 }

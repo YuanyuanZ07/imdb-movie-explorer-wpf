@@ -1,0 +1,108 @@
+<Page x:Class="final_project.UI.Pages.MovieDetailsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="Movie Details"
+
+
+<ScrollViewer>
+    <Grid Background="#F7F2EA" Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+    </Grid>
+
+    <TextBlock Text="{Binding Title}" FontSize="36" FontWeight="Bold" Margin="0,0,0,20"/>
+
+    <Border Grid.Row="1" Background="#EADCCB" CornerRadius="6" Margin="0,0,0,16" Padding="16">
+        <StackPanel>
+
+            <TextBlock Text="INFORMATION"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,8"/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="{Binding Rating, StringFormat=Rating:{0}}"/>
+                    <TextBlock Text="{Binding Votes, StringFormat=Votes: {0}}"/>
+            </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="{Binding Year, StringFormat=Year: {0}}"/>
+                    <TextBlock Text="{Binding Runtime, StringFormat=Runtime: {0}}"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Border>
+    <Border Grid.Row="2"
+                    Background="#EADCCB"
+                    CornerRadius="6"
+                    Padding="16"
+                    Margin="0,0,0,16">
+
+        <StackPanel>
+            <TextBlock Text="GENRES"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,8"/>
+
+            <ItemsControl ItemsSource="{Binding Genres}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="#D6C4A8"
+                                        CornerRadius="4"
+                                        Padding="6"
+                                        Margin="4">
+                            <TextBlock Text="{Binding}"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+    </Border>
+
+    <Border Grid.Row="3"
+                    Background="#EADCCB"
+                    CornerRadius="6"
+                    Padding="16"
+                    Margin="0,0,0,16">
+
+        <StackPanel>
+            <TextBlock Text="CAST"
+                               FontWeight="SemiBold"
+                               Margin="0,0,0,8"/>
+
+            <ItemsControl ItemsSource="{Binding Cast}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Margin="0,4"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Border>
+    <Button Grid.Row="4"
+                    Content="Back to Home Page"
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    Command="{Binding BackCommand}"/>
+
+        </Grid>
+    </ScrollViewer>
+</Page>

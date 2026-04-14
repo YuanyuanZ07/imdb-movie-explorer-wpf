@@ -4,6 +4,8 @@ namespace ImdbWpfApp.DataAccess
 {
     public class ImdbContext : DbContext
     {
+        public ImdbContext() { 
+        }
         public ImdbContext(DbContextOptions<ImdbContext> options)
             : base(options)
         {
